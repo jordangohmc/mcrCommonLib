@@ -7,9 +7,5 @@
     {
       "name": "mcr"
     }
-  ],
-  "build": {
-    "includeDir": "include",
-    "srcDir": "src"
-  }
+  ]
 }

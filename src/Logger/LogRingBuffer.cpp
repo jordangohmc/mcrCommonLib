@@ -1,5 +1,5 @@
 // LogRingBuffer.cpp
-#include "Logger/LogRingBuffer.h"
+#include "LogRingBuffer.h"
 
 bool LogRingBuffer::begin(size_t size) {
     end(); // 清理旧的
