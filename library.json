@@ -1,0 +1,15 @@
+{
+  "name": "mcrCommonLib",
+  "version": "1.0.0",
+  "description": "Custom common library for ESP32 (Logger, IndicatorLed, etc)",
+  "keywords": ["esp32", "logger", "indicator", "debug"],
+  "authors": [
+    {
+      "name": "mcr"
+    }
+  ],
+  "build": {
+    "includeDir": "include",
+    "srcDir": "src"
+  }
+}
