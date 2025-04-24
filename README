@@ -35,3 +35,15 @@ Read more about using header files in official GCC documentation:
 * Computed Includes
 
 https://gcc.gnu.org/onlinedocs/cpp/Header-Files.html
+
+
+
+library.json =>   "version": "1.0.0",    # 版本号
+
+
+git tag -f 1.0.0               # 强制在当前提交重打 tag
+git push origin -f 1.0.0      # 强制 push 覆盖远程 tag
+
+
+git tag 1.0.1
+git push origin 1.0.1

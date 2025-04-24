@@ -1,5 +1,5 @@
 // logger.cpp
-#include "LogRingBuffer.h"
+#include "Logger.h"
 #include <Arduino.h>
 #include <time.h>
 
