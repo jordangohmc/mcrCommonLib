@@ -70,7 +70,8 @@ void LedIndicator::_ledOff() {
     _ledOn(0, CRGB::Black);
   }
   else {
-    digitalWrite(outputPin, LOW);
+    if (outputPin >= 0)
+      digitalWrite(outputPin, LOW);
   }
 }
 
@@ -78,17 +79,18 @@ void LedIndicator::_ledOn(u8_t brightness, u32_t color) {
   if (type == LedType::LED2812) {
     _waitIfHold();
     // gpio_matrix_in(GPIO_MATRIX_CONST_ONE_INPUT, U2RXD_IN_IDX, false);
-    pinMode(outputPin, OUTPUT);
+    // pinMode(outputPin, OUTPUT);
     WS2812.setBrightness(brightness);
     WS2812.setAllLedsColorData(color);
     WS2812.show();
-    pinMode(outputPin, INPUT);
+    // pinMode(outputPin, INPUT);
     // gpio_matrix_in(20, U2RXD_IN_IDX, false);
     // gpio_pad_select_gpio(20);  // 确保引脚配置为 GPIO 模式
     // gpio_set_direction(GPIO_NUM_20, GPIO_MODE_INPUT);  // 设置为输入
   }
   else {
-    digitalWrite(outputPin, HIGH);
+    if (outputPin >= 0)
+      digitalWrite(outputPin, HIGH);
   }
 }
 /*--- Function ---*/
@@ -102,9 +104,11 @@ bool LedIndicator::begin(u8_t ledPin, LedType setType, u8_t brightness) {
     _ledOn(brightness, baseColor);
   }
   else {
-    outputPin = ledPin;
-    pinMode(ledPin, OUTPUT);
-    digitalWrite(outputPin, LOW);
+    if (ledPin >= 0) {
+      outputPin = ledPin;
+      pinMode(ledPin, OUTPUT);
+      digitalWrite(outputPin, LOW);
+    }
   }
   if (!ledMutex) {
     ledMutex = xSemaphoreCreateMutex();

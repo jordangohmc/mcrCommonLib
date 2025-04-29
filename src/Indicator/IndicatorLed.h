@@ -40,7 +40,7 @@ private:
     Freenove_ESP32_WS2812 WS2812 = Freenove_ESP32_WS2812(NUM_LEDS, 0, CHANNEL, TYPE_GRB);
     LedIndFn fnQueue[MAX_HIS_FN];
     u8_t fnLast = 0;
-    u8_t outputPin = 0;
+    u8_t outputPin = -1;
     LedType type = LedType::SingleLED;
     u8_t baseBrightness = 50;
     u32_t baseColor = CRGB::Black;
