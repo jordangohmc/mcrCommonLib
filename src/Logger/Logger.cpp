@@ -201,6 +201,11 @@ void Logger::loggerFunctionVa(logLevel log_level, u8_t channel, char const* form
             taskName);
         if (logger._minHeapKb > logger._curHeapKb) logger._minHeapKb = logger._curHeapKb;
     }
+    else {
+        TaskHandle_t currentTask = xTaskGetCurrentTaskHandle();
+        const char* taskName = pcTaskGetName(currentTask);
+        snprintf(prefixHeapBuf, sizeof(prefixHeapBuf), "%-8.8s", taskName);
+    }
     int prefixLen = strlen(prefixBuf);
     // 格式化用户日志内容长度
     va_list args_copy;
@@ -225,7 +230,7 @@ void Logger::loggerFunctionVa(logLevel log_level, u8_t channel, char const* form
             Serial.println("Failed to allocate memory for logger!");
             // 错误处理：例如记录到外部日志，避免继续执行
             if (logger.externLogger)
-                logger.externLogger(log_level_error, prefixHeapBuf, "Failed to allocate memory for logger!", args);
+                logger.externLogger(log_level, prefixHeapBuf, "Failed to allocate memory for logger!", args);
             return; // 直接返回，避免后续崩溃
         }
     }
