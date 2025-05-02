@@ -40,9 +40,10 @@ public:
   void begin(std::initializer_list<u8_t> logEnChannels = {});
   void enLog(u8_t ch);
   void setEnabled(u8_t ch, bool en); // 设置日志通道开关
-  bool toggleEnabled(u8_t ch);
+  bool toggleLogEn(u8_t ch);
   bool isEnabled(u8_t ch) { return _logEn[ch]; }; // 获取日志通道开关
   void enLogHeapEn() { _logHeapEn = true; };
+  bool toggleLogDebugEn();
   bool toggleLogHeapEn();
   bool isLogHeapEn() { return _logHeapEn; };
   void heapPrint();
@@ -59,6 +60,7 @@ private:
   u_int16_t loggerTimingOffset = 0;
 
   bool _logEn[LOG_MAX_CHANNEL];
+  bool _debugEn;
   bool _logHeapEn;
   float _curHeapKb;
   float _minHeapKb;

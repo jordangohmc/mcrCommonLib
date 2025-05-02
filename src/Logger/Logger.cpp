@@ -73,10 +73,14 @@ void Logger::enLog(u8_t ch) {
     if (ch >= LOG_MAX_CHANNEL) return;
     _logEn[ch] = true;
 }
-bool Logger::toggleEnabled(u8_t ch) {
+bool Logger::toggleLogEn(u8_t ch) {
     if (ch >= LOG_MAX_CHANNEL) return false;
     _logEn[ch] = !_logEn[ch];
     return _logEn[ch];
+}
+bool Logger::toggleLogDebugEn() {
+    _debugEn = !_debugEn;
+    return _debugEn;
 }
 bool Logger::toggleLogHeapEn() {
     _logHeapEn = !_logHeapEn;
@@ -102,7 +106,8 @@ void Logger::heapPrint() {
 }
 // extern void loggerFunction(logLevel log_level, u8_t channel, const char* format, ...) {
 void Logger::loggerFunction(logLevel log_level, u8_t channel, const char* format, ...) {
-    if (!logger.isEnabled(channel)) return;
+    if (!logger._debugEn && log_level == logLevel::log_level_debug) return;
+    if (!logger.isEnabled(channel) && log_level != logLevel::log_level_debug) return;
     // char buf[256];  // 可以根据需要调整大小
     // va_list args;
     // va_start(args, format);
@@ -119,7 +124,8 @@ void Logger::loggerFunction(logLevel log_level, u8_t channel, const char* format
 
 // extern void loggerFunctionVa(logLevel log_level, u8_t channel, char const* format, va_list args) {
 void Logger::loggerFunctionVa(logLevel log_level, u8_t channel, char const* format, va_list args) {
-    if (!logger.isEnabled(channel)) return;
+    if (!logger._debugEn && log_level == logLevel::log_level_debug) return;
+    if (!logger.isEnabled(channel) && log_level != logLevel::log_level_debug) return;
     // char logMessage[256];
     // vsnprintf(logMessage, sizeof(logMessage), format, args);
     // Serial.printf("begin test message level: %d channel: %d message: %s\n", log_level, channel, logMessage);
